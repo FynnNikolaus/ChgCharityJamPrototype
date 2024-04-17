@@ -35,6 +35,7 @@ body {
     background-color: #1008156b;
     font-size: large;
     color: white;
+    position: relative;
 }
 
 .credits {
@@ -46,4 +47,34 @@ body {
     border-radius: 40px;
     margin: 0 auto;
     margin-bottom: 8px;
+}
+
+.states {
+    display: none;
+}
+
+
+
+.teamName::before,
+.teamName::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    transform: rotate(180deg); /* Spitzen um 45 Grad drehen */
+}
+
+.teamName::before {
+    border-width: 10px 0 10px 10px; /* Top, Right, Bottom, Left */
+    border-color: transparent transparent transparent #1008156b; /* Farbe der Spitze, passend zur Hintergrundfarbe */
+    left: -10px;
+    height: 100%;
+}
+
+.teamName::after {
+    border-width: 10px 10px 10px 0; /* Top, Right, Bottom, Left */
+    border-color: transparent #1008156b transparent transparent; /* Farbe der Spitze, passend zur Hintergrundfarbe */
+    right: -10px;
+    height: 100%;
 }
