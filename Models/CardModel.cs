@@ -2,7 +2,7 @@
 {
     public class CardModel
     {
-        private List<Card> _cardList;
+        public List<Card> _cardList;
 
         public CardModel()
         {

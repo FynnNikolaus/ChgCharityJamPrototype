@@ -11,10 +11,10 @@
 <div class="container">
     <label for="cards">Choose a card:</label>
     <select name="cards" id="cards">
-        <option value="volvo card">Volvo Card</option>
-        <option value="saab card">Saab Card</option>
-        <option value="mercedes card">Mercedes Card</option>
-        <option value="audi card">Audi Card</option>
+        @foreach (var card in Model._cardList)
+        {
+            <option value="@card.Id">@card.Name</option>
+        }
     </select>
     <input type="button" class="sendCard" value="Send Card" />
 </div>
