@@ -22,6 +22,16 @@ namespace ChgCharityJamPrototype.Controllers
 		{
 			return View();
 		}
+		
+		public IActionResult Board()
+		{
+			return View();
+		}
+		
+		public IActionResult BoardBackend()
+		{
+			return View();
+		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
