@@ -11,7 +11,7 @@ $(document).ready(function () {
 
     function sendCard() {
         var card = $("#cards").val();
-        var team = "deine Mama";
+        var team = "TeamX";
 
         connection.invoke("PlayCard", card, team).catch(function (err) {
             return console.error(err.toString());
