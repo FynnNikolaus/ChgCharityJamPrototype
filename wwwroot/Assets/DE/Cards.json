@@ -1,0 +1,30 @@
+[
+    {
+        "ActivationMode": 0,
+        "Id": "1",
+        "Name": "Card1",
+        "Text": "Text1",
+        "EffectDurationInMinutes": null
+    },
+    {
+        "ActivationMode": 1,
+        "Id": "2",
+        "Name": "Card2",
+        "Text": "Text2",
+        "EffectDurationInMinutes": 60
+    },
+    {
+        "ActivationMode": 0,
+        "Id": "3",
+        "Name": "Card3",
+        "Text": "Text3",
+        "EffectDurationInMinutes": null
+    },
+    {
+        "ActivationMode": 1,
+        "Id": "4",
+        "Name": "Card4",
+        "Text": "Text4",
+        "EffectDurationInMinutes": 30
+    }
+]
