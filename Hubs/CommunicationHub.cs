@@ -8,5 +8,10 @@ namespace ChgCharityJamPrototype.Hubs
 		{
 			await Clients.All.SendAsync("ReceiveMessage", user, message);
 		}
+
+		public async Task PlayCard(string team, string card)
+		{
+            await Clients.All.SendAsync("ReceiveCard", team, card);
+        }
 	}
 }
