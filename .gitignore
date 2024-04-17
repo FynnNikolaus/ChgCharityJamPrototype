@@ -429,3 +429,4 @@ build/tools/*
 
 # Uploaded local tesma documents
 /src/Service/CHG.TESMA.Service.Document/LocalTesmaDocuments
+/.vs/ChgCharityJamPrototype/FileContentIndex/053dc813-0cf5-40c2-8f4c-60e697266171.vsidx
