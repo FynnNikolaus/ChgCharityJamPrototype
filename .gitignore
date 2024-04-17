@@ -396,34 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-##########################################################
-# TESMA specific
-##########################################################
-# Do not ignore files in folders that contain user
-!*.user/
-
-# JetBrains Rider
-.idea/
-
-# Cake Build tools
-tools/*
-build/tools/*
-[Bb]uildArtifacts/
-
-# temporary folder for auto-generated EF files
-**/CHG.TESMA.Data/tmp
-
-# SonarQube
-/build/.sonarqube
-
-# SonarLint
-/.sonarlint
-
-# NCrunch
-*.ncrunchproject
-*.ncrunchsolution
-
-# Uploaded local tesma documents
-/src/Service/CHG.TESMA.Service.Document/LocalTesmaDocuments
-/.vs/ChgCharityJamPrototype/FileContentIndex/053dc813-0cf5-40c2-8f4c-60e697266171.vsidx
