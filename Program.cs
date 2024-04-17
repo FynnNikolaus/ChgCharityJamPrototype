@@ -1,5 +1,4 @@
 using ChgCharityJamPrototype.Hubs;
-using SignalRChat.Hubs;
 
 namespace ChgCharityJamPrototype
 {
@@ -11,7 +10,8 @@ namespace ChgCharityJamPrototype
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
-			builder.Services.AddSignalR();
+            builder.Services.AddRazorPages();
+            builder.Services.AddSignalR();
 
 			var app = builder.Build();
 
@@ -29,7 +29,8 @@ namespace ChgCharityJamPrototype
 			app.UseRouting();
 
 			app.UseAuthorization();
-			app.MapHub<CommunicationHub>("/communicationHub");
+            app.MapRazorPages();
+            app.MapHub<CommunicationHub>("/communicationHub");
 
 			app.MapControllerRoute(
 				name: "default",
