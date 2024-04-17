@@ -411,9 +411,6 @@ tools/*
 build/tools/*
 [Bb]uildArtifacts/
 
-# CDN
-**/wwwroot/**
-
 # temporary folder for auto-generated EF files
 **/CHG.TESMA.Data/tmp
 
