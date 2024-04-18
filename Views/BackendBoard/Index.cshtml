@@ -1,5 +1,5 @@
 ﻿@using ChgCharityJamPrototype.Models
-@model CardModel
+@model BackendModel
 @{
     ViewData["Title"] = "Backend Board";
 }
@@ -11,13 +11,57 @@
 <div class="container">
     <label for="cards">Choose a card:</label>
     <select name="cards" id="cards">
-        @foreach (var card in Model._cardList)
+        @foreach (var card in Model.Cards._cardList)
         {
             <option value="@card.Id">@card.Name</option>
         }
     </select>
     <input type="button" class="sendCard" value="Send Card" />
 </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Neues Team hinzufügen</h3>
+            <input type="text" class="NewTeamName" />
+            <button type="button" class="btn btn-primary" onclick="addTeam()">Hinzufügen</button>
+        </div>
+        <div class="col-md-8">
+            <h3>Teams</h3>
+            <select asp-items="@(new SelectList(Model.Teams._teamList))" class="form-control"></select>
+            <button type="button" class="btn btn-danger" onclick="deleteTeam()">Löschen</button>
+            <ul id="teamList">
+                @foreach (var team in Model.Teams._teamList)
+                {
+                    <li>@team.Name</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function addTeam() {
+            var teamName = document.getElementById('NewTeamName').value;
+            var teamList = document.getElementById('teamList');
+            var option = document.createElement('option');
+            option.text = teamName;
+            teamList.appendChild(option);
+        }
+
+        function deleteTeam() {
+            var teamList = document.getElementById('teamList');
+            var selectedTeam = document.getElementById('SelectedTeam').value;
+            for (var i = 0; i < teamList.options.length; i++) {
+                if (teamList.options[i].text === selectedTeam) {
+                    teamList.remove(i);
+                    break;
+                }
+            }
+        }
+    </script>
+}
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/channel.js"></script>
