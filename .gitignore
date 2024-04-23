@@ -396,3 +396,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/.idea/.idea.ChgCharityJamPrototype/.idea/.gitignore
+/.idea/.idea.ChgCharityJamPrototype/.idea/indexLayout.xml
+/.idea/.idea.ChgCharityJamPrototype/.idea/vcs.xml
+/.idea/.idea.ChgCharityJamPrototype.dir/.idea/.gitignore
+/.idea/.idea.ChgCharityJamPrototype.dir/.idea/indexLayout.xml
+/.idea/.idea.ChgCharityJamPrototype.dir/.idea/vcs.xml
+/.idea/config/applicationhost.config
