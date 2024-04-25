@@ -52,14 +52,6 @@ namespace ChgCharityJamPrototype.Controllers
                 if (jsonObject != null)
                     _backendModel.Cards.AddCards(jsonObject);
             }
-
-            //using (StreamReader sr = new StreamReader(filePath))
-            //{
-            //    var jsonObject = JsonConvert.DeserializeObject<List<Card>>(sr.ReadToEnd());
-
-            //    if (jsonObject != null)
-            //        _backendModel.Cards.AddCards(jsonObject);
-            //}
         }
     }
 }
