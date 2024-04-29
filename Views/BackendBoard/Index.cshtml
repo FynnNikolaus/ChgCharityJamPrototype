@@ -23,18 +23,18 @@
     <div class="row">
         <div class="col-md-4">
             <h3>Neues Team hinzufügen</h3>
-            <input type="text" class="NewTeamName" />
+            <input type="text" id="NewTeamName" />
             <button type="button" class="btn btn-primary" onclick="addTeam()">Hinzufügen</button>
         </div>
         <div class="col-md-8">
             <h3>Teams</h3>
-            <select asp-items="@(new SelectList(Model.Teams._teamList))" class="form-control"></select>
+            <select asp-items="@(new SelectList(Model.Teams._teamList.Select(x => x.Name)))" id="SelectedTeam" class="form-control"></select>
             <button type="button" class="btn btn-danger" onclick="deleteTeam()">Löschen</button>
             <ul id="teamList">
-                @foreach (var team in Model.Teams._teamList)
+@*                 @foreach (var team in Model.Teams._teamList)
                 {
                     <li>@team.Name</li>
-                }
+                } *@
             </ul>
         </div>
     </div>
@@ -44,21 +44,34 @@
     <script>
         function addTeam() {
             var teamName = document.getElementById('NewTeamName').value;
-            var teamList = document.getElementById('teamList');
+
             var option = document.createElement('option');
             option.text = teamName;
-            teamList.appendChild(option);
+
+            document.getElementById('SelectedTeam').append(option);
+
+
+            $.ajax({
+                url: "BackendBoard/AddTeam?team=" + teamName, type: "POST", success: function (result) {
+                    alert("successfully added team: " + result);
+                }
+            });
         }
 
         function deleteTeam() {
-            var teamList = document.getElementById('teamList');
-            var selectedTeam = document.getElementById('SelectedTeam').value;
-            for (var i = 0; i < teamList.options.length; i++) {
-                if (teamList.options[i].text === selectedTeam) {
-                    teamList.remove(i);
-                    break;
+            var teamSelectBox = document.getElementById('SelectedTeam');
+            var selectedTeam = teamSelectBox.options[teamSelectBox.selectedIndex].text;
+
+            $.ajax({
+                url: "BackendBoard/DeleteTeam?team=" + selectedTeam, type: "DELETE", success: function (result) {
+                    alert("successfully removed team: " + selectedTeam);
                 }
-            }
+            });
+
+            const options = [...document.querySelectorAll("#SelectedTeam option")];
+            options.forEach(elem => {
+                if (elem.innerText == selectedTeam) elem.parentNode.removeChild(elem);
+            });
         }
     </script>
 }

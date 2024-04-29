@@ -1,4 +1,5 @@
 using ChgCharityJamPrototype.Hubs;
+using ChgCharityJamPrototype.Models;
 
 namespace ChgCharityJamPrototype
 {
@@ -13,7 +14,10 @@ namespace ChgCharityJamPrototype
             builder.Services.AddRazorPages();
             builder.Services.AddSignalR();
 
-			var app = builder.Build();
+			// Add dependency injection classes
+            builder.Services.AddSingleton(BackendModel.Instance);
+
+            var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())

@@ -11,23 +11,63 @@ namespace ChgCharityJamPrototype.Controllers
         private readonly IConfiguration _configuration;
         private readonly IHostEnvironment _fileProvider;
 
-        private BackendModel _backendModel = new BackendModel();
+        private readonly BackendModel _backendModel;
 
         public BackendBoardController(ILogger<BackendBoardController> logger,
                                         IConfiguration configuration,
-                                        IHostEnvironment fileProvider)
+                                        IHostEnvironment fileProvider,
+                                        BackendModel backendModel)
         {
             _logger = logger;
             _configuration = configuration;
             _fileProvider = fileProvider;
+            _backendModel = backendModel;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            InitializeCards();
-            InitializeTeams();
+            // this initialization process should be done in either 
+            // the BackendModel itself or in an appropriate Logic / Builder Class
+            // Initialize cards
+            if(!_backendModel.Cards._cardList.Any())
+            {
+                InitializeCards();
+            }
+            // initialize teams
+            if(!_backendModel.Teams._teamList.Any())
+            {
+                InitializeTeams();
+            }
 
             return View(_backendModel);
+        }
+        
+        [HttpPost]
+        public IActionResult AddTeam([FromQuery] string team)
+        {
+            if(team is null)
+            {
+                return BadRequest("No name given");
+            }
+
+            _backendModel.Teams._teamList.Add(new Team(team, new System.Drawing.Color(), 0));
+
+            return Ok(team);
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteTeam([FromQuery] string team)
+        {
+            var teamToDelete = _backendModel.Teams._teamList.Find(x => x.Name is not null && x.Name.Equals(team, StringComparison.OrdinalIgnoreCase));
+            if(teamToDelete is null)
+            {
+                return NotFound();
+            }
+
+            _backendModel.Teams._teamList.Remove(teamToDelete);
+
+            return Ok();
         }
 
         private void InitializeTeams()
