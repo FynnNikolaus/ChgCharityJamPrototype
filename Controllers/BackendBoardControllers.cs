@@ -44,16 +44,16 @@ namespace ChgCharityJamPrototype.Controllers
         }
         
         [HttpPost]
-        public IActionResult AddTeam([FromQuery] string team)
+        public IActionResult AddTeam([FromQuery] string teamName)
         {
-            if(team is null)
+            if(teamName is null)
             {
                 return BadRequest("No name given");
             }
 
-            _backendModel.Teams._teamList.Add(new Team(team, new System.Drawing.Color(), 0));
+            _backendModel.Teams._teamList.Add(new Team.Builder().WithName(teamName).WithBalance(0).WithHexColor("#000000").Build());
 
-            return Ok(team);
+            return Ok(teamName);
         }
 
         [HttpDelete]
