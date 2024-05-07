@@ -41,3 +41,10 @@ jobs:
     - name: Push the Docker image
       run: docker push pascalspiller/chgcharityjamprototype:${{steps.gitversion.outputs.semVer}}
       if: github.event_name != 'pull_request'
+
+    - name: Create a GitHub release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{steps.gitversion.outputs.semVer}}
+        name: Release ${{steps.gitversion.outputs.semVer}}
+      if: github.event_name != 'pull_request'
