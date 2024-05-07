@@ -40,3 +40,4 @@ jobs:
           
     - name: Push the Docker image
       run: docker push pascalspiller/chgcharityjamprototype:${{steps.gitversion.outputs.semVer}}
+      if: github.event_name != 'pull_request'
