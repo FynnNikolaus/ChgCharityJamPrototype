@@ -28,8 +28,11 @@ body {
 .row {
   justify-content: space-around;
 }
+.itemWrapper {
+  padding-left: 25px;
+  padding-right: 25px;
+}
 .item {
-  border: 1px solid #ccc;
   padding: 20px;
   margin-bottom: 10px;
   min-height: 400px;
@@ -62,7 +65,7 @@ body {
 }
 .item > div {
   position: relative;
-  z-index: 0;
+  z-index: 2;
 }
 .item > div > img {
   display: block;
@@ -79,17 +82,44 @@ body {
   font-size: 28px;
   font-family: sans-serif;
   font-weight: 500;
+  margin-top: 280px;
 }
 .states {
+  z-index: 2;
   position: relative;
 }
-.states .states-left {
-  left: -20px;
+.states .states-left,
+.states .states-right {
   position: absolute;
+  z-index: 2;
+  /* Stelle sicher, dass der z-Index-Wert höher ist als der des Gradienten */
+  margin-top: 30px;
+}
+.states .states-left {
+  left: -25px;
 }
 .states .states-right {
-  right: -20px;
-  position: absolute;
+  right: -25px;
+}
+.states .status--1 {
+  background-image: url("../Assets/effects/SDCS-012.jpg");
+  /* Hintergrundbild */
+  background-size: contain;
+}
+.states .status--2 {
+  background-image: url("../Assets/effects/SDCS-013.jpg");
+  /* Hintergrundbild */
+  background-size: contain;
+}
+.states .status--3 {
+  background-image: url("../Assets/effects/SDCS-014.jpg");
+  /* Hintergrundbild */
+  background-size: contain;
+}
+.states .status--4 {
+  background-image: url("../Assets/effects/SDCS-015.jpg");
+  /* Hintergrundbild */
+  background-size: contain;
 }
 .states .status--1,
 .states .status--2,
@@ -97,12 +127,11 @@ body {
 .states .status--4 {
   height: 100px;
   width: 100px;
-  background-color: red;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 .teamName {
   text-align: center;
-  font-size: 18px;
+  font-size: 24px;
   background-color: #1008156b;
   color: #FFF;
   position: relative;

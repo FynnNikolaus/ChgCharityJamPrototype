@@ -15,26 +15,31 @@
 			<div id="teamButtons">
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Erstellen</button>
 				<button type="button" class="btn btn-danger" onclick="deleteTeam()">Löschen</button>
+				<button type="button" class="btn btn-info" onclick="loadTeams()">Refresh</button>
 			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-6">
 			<h3>Cards</h3>
 			<input class="form-control" id="cardSearchBox" type="text" placeholder="...Search">
 				<br>
+				<div class="table-responsive h-75">
 				<table class="table table-bordered table-striped bg-white">
 					<thead>
 					  <tr>
 						<th>Id</th>
 						<th>Name</th>
+						<th>Type</th>
+						<th>Activation</th>
+						<th>Duration</th>
+						<th>Price</th>
+						<th>Description</th>
+						<th>Description2</th>
 					  </tr>
 					</thead>
 					<tbody id="cardTable">
-					  <tr>
-						<td>SDCS-000</td>
-						<td>IDK</td>
-					  </tr>
 					</tbody>
 				</table>
+			</div>
 		</div>
 </div>
 
@@ -54,12 +59,8 @@
 						<input type="text" class="form-control" itemid="name" name="name" />
 						<label>Workspace Name:</label>
 						<input type="text" class="form-control" itemid="workspace" name="workspace" />
-						<label>Mitglieder Anzahl:</label>
-						<input type="number" class="form-control" itemid="userCount" name="userCount" />
 						<label>Credits:</label>
 						<input type="number" class="form-control" itemid="balance" name="balance" />
-						@* <label>Bild:</label> *@
-						@* <input type="file" class="form-control" itemid="image" name="image" /> *@
 						<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Save</button>
 						<button type="cancel" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Cancel</button>
 					</div>

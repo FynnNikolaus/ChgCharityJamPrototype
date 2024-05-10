@@ -1,162 +1,86 @@
 using ChgCharityJamPrototype.DTO;
+using ChgCharityJamPrototype.HostedService;
 using ChgCharityJamPrototype.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Newtonsoft.Json;
 using SDCS.Engine;
 
-namespace ChgCharityJamPrototype.Controllers
+namespace ChgCharityJamPrototype.Controllers;
+
+public class BackendBoardController : Controller
 {
-	public class BackendBoardController : Controller
+	private readonly ILogger<BackendBoardController> _logger;
+	private readonly IConfiguration _configuration;
+	private readonly IHostEnvironment _fileProvider;
+	private readonly IHubContext<CommunicationHub> _hubContext;
+	private readonly IGameStatusProvider _gameStatusProvider;
+
+	private readonly Game _game;
+
+	public BackendBoardController(ILogger<BackendBoardController> logger,
+									IConfiguration configuration,
+									IHostEnvironment fileProvider,
+									IHubContext<CommunicationHub> hubContext,
+									IGameStatusProvider gameStatusProvider,
+									Game game)
 	{
-		private readonly ILogger<BackendBoardController> _logger;
-		private readonly IConfiguration _configuration;
-		private readonly IHostEnvironment _fileProvider;
-		private readonly IHubContext<CommunicationHub> _hubContext;
+		_logger = logger;
+		_configuration = configuration;
+		_fileProvider = fileProvider;
+		_hubContext = hubContext;
+		_gameStatusProvider = gameStatusProvider;
+		_game = game;
+	}
 
-		private readonly Game _game;
+	[HttpGet]
+	public IActionResult Index()
+	{
+		return View(null);
+	}
 
-		public BackendBoardController(ILogger<BackendBoardController> logger,
-										IConfiguration configuration,
-										IHostEnvironment fileProvider,
-										IHubContext<CommunicationHub> hubContext,
-										Game game)
+	[HttpGet("BackendBoard/teams")]
+	public IActionResult GetTeams()
+	{
+		//var teams = _gameStatusProvider.GetLatestGameStatus().Teams;
+		var teams = _game.TeamManager.GetAllTeams();
+
+		return Ok(teams);
+	}
+
+	[HttpGet("BackendBoard/cards")]
+	public IActionResult GetCards()
+	{
+		var cardResponses = ReadCardsFromJson();
+
+		return Ok(cardResponses);
+	}
+
+	[HttpPost("addTeam")]
+	public async Task<IActionResult> AddTeam([FromForm] CreateTeamRequest newTeam)
+	{
+		_game.TeamManager.AddTeam(new SDCS.Teams.TeamData
 		{
-			_logger = logger;
-			_configuration = configuration;
-			_fileProvider = fileProvider;
-			_hubContext = hubContext;
-			_game = game;
-		}
+			Name = newTeam.Name,
+			Balance = newTeam.Balance,
+			Workspace = newTeam.Workspace
+		});
 
-		[HttpGet]
-		public IActionResult Index()
-		{
-			// this initialization process should be done in either 
-			// the BackendModel itself or in an appropriate Logic / Builder Class
-			// Initialize cards
-			//if (!_game.Cards._cardList.Any())
-			//{
-			//	InitializeCards();
-			//}
-			//// initialize teams
-			//if (!_game.Teams._teamList.Any())
-			//{
-			//	InitializeTeams();
-			//}
+		return Ok();
+	}
 
-			return View(null);
-		}
+	[HttpDelete]
+	public IActionResult DeleteTeam([FromQuery] string team)
+	{
+		return Ok();
+	}
 
-		[HttpGet("BackendBoard/teams")]
-		public IActionResult GetTeams()
-		{
-			var teamResponse = new List<TeamResponse>
-			{
-				new TeamResponse
-				{
-					Balance = 0,
-					Name = "sad",
-					UserCount = 1
-				},
+	private List<CardResponse> ReadCardsFromJson()
+	{
+		using StreamReader sr = new("MockFiles/cards.json");
+		var json = sr.ReadToEnd();
+		var cardList = JsonConvert.DeserializeObject<List<CardResponse>>(json);
 
-				new TeamResponse
-				{
-					Balance = 1,
-					Name = "sadasd",
-					UserCount = 2
-				},
-
-				new TeamResponse
-				{
-					Balance = 3,
-					Name = "saasdad",
-					UserCount = 5
-				},
-
-				new TeamResponse
-				{
-					Balance = 6,
-					Name = "asdassad",
-					UserCount = 7
-				}
-			};
-
-			return Ok(teamResponse);
-		}
-
-		[HttpGet("BackendBoard/cards")]
-		public IActionResult GetCards()
-		{
-			var cardResponses = new List<CardResponse>
-			{
-				new CardResponse
-				{
-					Id = "asd",
-					Name = "sad",
-					Activation = "private"
-				}
-			};
-
-			return Ok(cardResponses);
-		}
-
-		[HttpPost("addTeam")]
-		public async Task<IActionResult> AddTeam([FromForm] CreateTeamRequest newTeam)
-		{
-			await _hubContext.Clients.All.SendAsync("ReceiveCard", "asd", "card");
-
-
-			// _game.TeamManager.AddTeam(new TeamData());
-
-
-			return Ok();
-			//if(teamName is null)
-			//{
-			//    return BadRequest("No name given");
-			//}
-
-			//_game.Teams._teamList.Add(new Team.Builder().WithName(teamName).WithBalance(0).WithHexColor("#000000").Build());
-
-			//return Ok(teamName);
-		}
-
-		[HttpDelete]
-		public IActionResult DeleteTeam([FromQuery] string team)
-		{
-			//var teamToDelete = _game.Teams._teamList.Find(x => x.Name is not null && x.Name.Equals(team, StringComparison.OrdinalIgnoreCase));
-			//if (teamToDelete is null)
-			//{
-			//	return NotFound();
-			//}
-
-			//_game.Teams._teamList.Remove(teamToDelete);
-
-
-			return Ok();
-		}
-
-		//private void InitializeTeams()
-		//{
-		//	var testTeamMember = new Team.Builder().WithName("TestTeam").WithBalance(420).WithHexColor("#3498db").Build();
-		//	_game.Teams.AddTeamMembers([testTeamMember]);
-		//}
-
-		//private void InitializeCards()
-		//{
-		//	string subPath = Path.Combine(_configuration["AssetDefinition:AssetLocation"] ?? "", _configuration["AssetDefinition:LanguageSettings"] ?? "", _configuration["AssetDefinition:CardFile"] ?? "");
-
-		//	var filInfo = _fileProvider.ContentRootFileProvider.GetFileInfo(subPath);
-
-		//	if (!filInfo.Exists)
-		//		throw new NullReferenceException($"The Assets file could not be found in directory {filInfo.PhysicalPath}");
-
-		//	using (StreamReader reader = new StreamReader(filInfo.CreateReadStream(), Encoding.UTF8))
-		//	{
-		//		var jsonObject = JsonConvert.DeserializeObject<List<Card>>(reader.ReadToEnd());
-
-		//		if (jsonObject != null)
-		//			_game.Cards.AddCards(jsonObject);
-		//	}
-		//}
+		return cardList;
 	}
 }
