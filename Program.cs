@@ -1,5 +1,7 @@
+using ChgCharityJamPrototype.HostedService;
 using ChgCharityJamPrototype.Hubs;
 using ChgCharityJamPrototype.Models;
+using SDCS.Engine;
 
 namespace ChgCharityJamPrototype
 {
@@ -11,13 +13,20 @@ namespace ChgCharityJamPrototype
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
-            builder.Services.AddRazorPages();
-            builder.Services.AddSignalR();
+			builder.Services.AddRazorPages();
+			builder.Services.AddSignalR();
 
 			// Add dependency injection classes
-            builder.Services.AddSingleton(BackendModel.Instance);
+			builder.Services.AddSingleton(BackendModel.Instance);
 
-            var app = builder.Build();
+			var engine = new Engine();
+			var game = new Game(engine);
+
+			builder.Services.AddSingleton(engine);
+			builder.Services.AddSingleton(game);
+			builder.Services.AddHostedService<GameEngineHostedService>();
+
+			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
 			if (!app.Environment.IsDevelopment())
@@ -33,8 +42,8 @@ namespace ChgCharityJamPrototype
 			app.UseRouting();
 
 			app.UseAuthorization();
-            app.MapRazorPages();
-            app.MapHub<CommunicationHub>("/communicationHub");
+			app.MapRazorPages();
+			app.MapHub<CommunicationHub>("/communicationHub");
 
 			app.MapControllerRoute(
 				name: "default",
