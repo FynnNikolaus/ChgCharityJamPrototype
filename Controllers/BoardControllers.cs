@@ -1,21 +1,21 @@
+using ChgCharityJamPrototype.HostedService;
 using Microsoft.AspNetCore.Mvc;
-using SDCS.Engine;
 
 namespace ChgCharityJamPrototype.Controllers
 {
 	public class BoardController : Controller
 	{
-		private readonly Game _game;
+		private readonly IGameStatusProvider _gameStatusProvider;
 
-		public BoardController(Game game)
+		public BoardController(IGameStatusProvider gameStatusProvider)
 		{
-			_game = game ?? throw new ArgumentNullException(nameof(game));
+			_gameStatusProvider = gameStatusProvider ?? throw new ArgumentNullException(nameof(gameStatusProvider));
 		}
 
 		public IActionResult Index()
 		{
-			var allTeams = _game.TeamManager.GetAllTeams();
-			return View(allTeams);
+			var gameStatus = _gameStatusProvider.GetLatestGameStatus();
+			return View(gameStatus);
 		}
 	}
 }

@@ -1,14 +1,11 @@
 ﻿@using ChgCharityJamPrototype.Models.GameEngineModels
-@using SDCS.Teams
 @{
     ViewData["Title"] = "Frontend Board";
 }
 
-<<<<<<< HEAD
-@model IEnumerable<ITeam>
-=======
+@model GameStatusModel
+
 <button type="button" class="showCards" data-bs-toggle="foo">Click on me to trigger card</button>
->>>>>>> 74e9dc982bbb856e823b84a6736f5858c1c04539
 
 <div class="inner-container">
 	<div class="row">
@@ -38,7 +35,7 @@
 	
 	<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 d-flex">
 		<!-- Platzhalter für Items -->
-        @foreach (var team in Model)
+        @foreach (var team in Model.Teams)
         {
             <div class="col">
                 <div class="itemWrapper">
@@ -48,13 +45,13 @@
                             <div class="status--2"></div>
                         </div>
                         <div class="states-right">
-                            <div class="status--3"></div>
+                            <div class="status--3" style="background-image:url('../../../wwwroot/Assets/effects/@(team.Effects.FirstOrDefault()).jpg')"></div>
                             <div class="status--4"></div>
                         </div>
                     </div>
                     <div class="item">
-                        <div class="credits">@team.TeamData.Balance</div>
-                        <div class="teamName">@team.TeamData.Name</div>
+                        <div class="credits">@team.Balance</div>
+                        <div class="teamName">@team.Name</div>
                     </div>
                 </div>
             </div>
