@@ -1,4 +1,5 @@
 
+using AsyncAwaitBestPractices;
 using ChgCharityJamPrototype.Hubs;
 using ChgCharityJamPrototype.Models.GameEngineModels;
 using SDCS.Engine;
@@ -22,15 +23,26 @@ public class GameEngineHostedService : BackgroundService
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
 	{
+		GameStatusModel gameStatus = null;
+
 		Engine.GameUpdateHandler = GameStatusProvider;
 
-		var gameTask = Engine.Run(Game, targetFPS: 1);
-
-		await CommunicationHub.UpdateGameStatus(new GameStatusModel(), stoppingToken);
+		// run the game
+		Engine.Run(Game, targetFPS: 1).SafeFireAndForget();
 
 		while (!stoppingToken.IsCancellationRequested)
 		{
+			var oldGameStatus = gameStatus;
 
+			// get the current game status and check for changes
+			gameStatus = GameStatusProvider.GetLatestGameStatus();
+			var needsUpdate = oldGameStatus is null || !oldGameStatus.Equals(gameStatus);
+
+			// if the game status did change, notify all the frontend panels
+			if (needsUpdate)
+				await CommunicationHub.UpdateGameStatus(gameStatus, stoppingToken);
+
+			await Task.Delay(TimeSpan.FromSeconds(1), stoppingToken);
 		}
 	}
 }
