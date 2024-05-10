@@ -24,7 +24,7 @@ public class GameStatusProvider : IGameStatusProvider, IGameUpdate
 
 	public Task GameUpdated(IGame game)
 	{
-		var teams = Game.TeamManager.teams.Select(t => new Team { Id = t.Key.Guid.ToString(), Balance = t.Value.TeamData.Balance, Effects = GetTeamEffects(t.Key), Workspace = t.Value.TeamData.Workspace }).ToArray();
+		var teams = Game.TeamManager.teams.Select(t => new Team { Id = t.Key.Guid, Name = t.Value.TeamData.Name, Balance = t.Value.TeamData.Balance, Effects = GetTeamEffects(t.Key), Workspace = t.Value.TeamData.Workspace }).ToArray();
 		var newModel = new GameStatusModel
 		{
 			Teams = teams,
@@ -42,16 +42,22 @@ public class GameStatusProvider : IGameStatusProvider, IGameUpdate
 	private Effect[] GetTeamEffects(Handle<ITeam> teamId)
 	{
 		var effectHandles = Game.EffectManager.GetTeamEffects(teamId);
-		var effects = effectHandles.Select(e => (Handle: e, Effect: Game.EffectManager.GetRawEffect(e)));
+
+		var effects = effectHandles.Select(e => (Handle: e, Effect: Game.EffectManager.GetRawEffect(e), Composite: Game.EffectManager.GetComposite(e)));
 
 		return effects.Select(e =>
 		{
 			var activationTime = GetActivationTime(e.Effect.ActivationTime);
 			var duration = TimeSpan.FromSeconds(e.Effect.Duration);
 
+			var cardId = "";
+			if (e.Composite.OwningCard.HasValue)
+				cardId = Game.CardManager.GetCardData(e.Composite.OwningCard.Value)?.Id ?? "";
+
 			return new Effect
 			{
-				Id = e.Handle.Guid.ToString(),
+				Id = e.Handle.Guid,
+				CardId = cardId,
 				ActivationTime = activationTime,
 				Duration = duration,
 				EffectEnd = activationTime + duration

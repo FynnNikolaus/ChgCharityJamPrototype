@@ -2,9 +2,14 @@ namespace ChgCharityJamPrototype.Models.GameEngineModels;
 
 public record Team
 {
-	public string Id { get; init; } = string.Empty;
+	public Guid Id { get; init; } = Guid.Empty;
+
+	public string Name { get; init; } = string.Empty;
+
 	public Effect[] Effects { get; init; } = [];
+
 	public decimal Balance { get; init; }
+
 	public string Workspace { get; init; } = string.Empty;
 
 	public virtual bool Equals(Team? other)
