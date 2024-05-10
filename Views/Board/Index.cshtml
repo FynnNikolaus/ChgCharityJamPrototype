@@ -1,6 +1,10 @@
-﻿@{
+﻿@using ChgCharityJamPrototype.Models.GameEngineModels
+@using SDCS.Teams
+@{
     ViewData["Title"] = "Frontend Board";
 }
+
+@model IEnumerable<ITeam>
 
 <div class="inner-container">
 	<div class="row">
@@ -30,150 +34,27 @@
 	
 	<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 d-flex">
 		<!-- Platzhalter für Items -->
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 1</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 2</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 3</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 4</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 5</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 6</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 7</div>
-				</div>
-			</div>
-		</div>
-		<div class="col">
-			<div class="itemWrapper">
-				<div class="states">
-					<div class="states-left">
-						<div class="status--1">Status 1</div>
-						<div class="status--2">Status 2</div>
-					</div>
-					<div class="states-right">
-						<div class="status--3">Status 3</div>
-						<div class="status--4">Status 4</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="credits">200.000 CC</div>
-					<div class="teamName"> Team 8</div>
-				</div>
-			</div>
-		</div>
+        @foreach (var team in Model)
+        {
+            <div class="col">
+                <div class="itemWrapper">
+                    <div class="states">
+                        <div class="states-left">
+                            <div class="status--1"></div>
+                            <div class="status--2"></div>
+                        </div>
+                        <div class="states-right">
+                            <div class="status--3"></div>
+                            <div class="status--4"></div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="credits">@team.TeamData.Balance</div>
+                        <div class="teamName">@team.TeamData.Name</div>
+                    </div>
+                </div>
+            </div>
+        }
 	</div>
 </div>
 
