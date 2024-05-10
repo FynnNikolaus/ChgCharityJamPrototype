@@ -42,8 +42,7 @@ public class BackendBoardController : Controller
 	[HttpGet("BackendBoard/teams")]
 	public IActionResult GetTeams()
 	{
-		//var teams = _gameStatusProvider.GetLatestGameStatus().Teams;
-		var teams = _game.TeamManager.GetAllTeams();
+		var teams = _gameStatusProvider.GetLatestGameStatus().Teams;
 
 		return Ok(teams);
 	}

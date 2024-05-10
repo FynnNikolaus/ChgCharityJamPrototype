@@ -4,7 +4,11 @@
     ViewData["Title"] = "Frontend Board";
 }
 
+<<<<<<< HEAD
 @model IEnumerable<ITeam>
+=======
+<button type="button" class="showCards" data-bs-toggle="foo">Click on me to trigger card</button>
+>>>>>>> 74e9dc982bbb856e823b84a6736f5858c1c04539
 
 <div class="inner-container">
 	<div class="row">
@@ -59,12 +63,14 @@
 </div>
 
 <div class="container">
-    <div class="row p-1">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
+	<div class="row p-1">
+		<div class="col-6">
+			<ul id="messagesList"></ul>
+		</div>
+	</div>
 </div>
+
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/recipient.js"></script>
+<script src="~/js/channel.js"></script>

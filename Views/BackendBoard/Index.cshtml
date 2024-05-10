@@ -7,23 +7,33 @@
 	<h1 class="display-4">Backend Board</h1>
 </div>
 
-<div class="container">
+<div class="container" >
 	<div class="row">
 		<div class="col-md-3">
 			<h3>Teams</h3>
-			<select id="teamSelection" class="form-control" size="8"></select>
+			<table class="table table-bordered table-hover bg-white">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Name</th>
+						<th>Balance</th>
+						<th>Workspace</th>
+					</tr>
+				</thead>
+				<tbody id="teamTable" class="overflow-hidden">
+				</tbody>
+			</table>
 			<div id="teamButtons">
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Erstellen</button>
 				<button type="button" class="btn btn-danger" onclick="deleteTeam()">Löschen</button>
-				<button type="button" class="btn btn-info" onclick="loadTeams()">Refresh</button>
 			</div>
 		</div>
 		<div class="col-md-6">
 			<h3>Cards</h3>
 			<input class="form-control" id="cardSearchBox" type="text" placeholder="...Search">
-				<br>
-				<div class="table-responsive h-75">
-				<table class="table table-bordered table-striped bg-white">
+			<br>
+			<div style="height: 900px" class="overflow-scroll">
+				<table class="table table-bordered table-hover bg-white">
 					<thead>
 					  <tr>
 						<th>Id</th>
@@ -36,11 +46,12 @@
 						<th>Description2</th>
 					  </tr>
 					</thead>
-					<tbody id="cardTable">
+					<tbody id="cardTable" class="overflow-hidden">
 					</tbody>
 				</table>
 			</div>
 		</div>
+	</div>
 </div>
 
 <div class="container">
@@ -72,3 +83,4 @@
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/channel.js"></script>
+<script src="~/js/admin/main.js"></script>
