@@ -1,22 +1,10 @@
 ﻿@using ChgCharityJamPrototype.Models
-@model BackendModel
 @{
 	ViewData["Title"] = "Backend Board";
 }
 
 <div class="text-center">
 	<h1 class="display-4">Backend Board</h1>
-</div>
-
-<div class="container">
-	<label for="cards">Choose a card:</label>
-	<select name="cards" id="cards">
-		@foreach (var card in Model.Cards._cardList)
-		{
-			<option value="@card.Id">@card.Name</option>
-		}
-	</select>
-	<input type="button" class="sendCard" value="Send Card" />
 </div>
 
 <div class="container">
@@ -33,20 +21,24 @@
 			<h3>Cards</h3>
 			<input class="form-control" id="cardSearchBox" type="text" placeholder="...Search">
 				<br>
+			<div class="h-75">
 				<table class="table table-bordered table-striped bg-white">
 					<thead>
 					  <tr>
 						<th>Id</th>
 						<th>Name</th>
+						<th>Type</th>
+						<th>Activation</th>
+						<th>Duration</th>
+						<th>Price</th>
+						<th>Description</th>
+						<th>Description2</th>
 					  </tr>
 					</thead>
 					<tbody id="cardTable">
-					  <tr>
-						<td>SDCS-000</td>
-						<td>IDK</td>
-					  </tr>
 					</tbody>
 				</table>
+			</div>
 		</div>
 </div>
 
@@ -66,12 +58,8 @@
 						<input type="text" class="form-control" itemid="name" name="name" />
 						<label>Workspace Name:</label>
 						<input type="text" class="form-control" itemid="workspace" name="workspace" />
-						<label>Mitglieder Anzahl:</label>
-						<input type="number" class="form-control" itemid="userCount" name="userCount" />
 						<label>Credits:</label>
 						<input type="number" class="form-control" itemid="balance" name="balance" />
-						@* <label>Bild:</label> *@
-						@* <input type="file" class="form-control" itemid="image" name="image" /> *@
 						<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Save</button>
 						<button type="cancel" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Cancel</button>
 					</div>

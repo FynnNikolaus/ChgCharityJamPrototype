@@ -22,4 +22,7 @@ RUN dotnet publish "./ChgCharityJamPrototype.csproj" -c $BUILD_CONFIGURATION -o 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ./defaultconfig /opt/config
+ENV GameConf_Directory=/opt/config
+
 ENTRYPOINT ["dotnet", "ChgCharityJamPrototype.dll"]
