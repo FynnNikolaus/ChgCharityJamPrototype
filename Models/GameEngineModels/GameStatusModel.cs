@@ -1,5 +1,3 @@
-using ChgCharityJamPrototype.Models;
-
 namespace ChgCharityJamPrototype.Models.GameEngineModels;
 
 public record GameStatusModel
