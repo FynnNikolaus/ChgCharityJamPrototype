@@ -12,10 +12,9 @@ $(document).ready(function () {
 		console.log("seinding card")
         new Senders(connection).sendCard();
 	});
-
-	$(".showCards").click(function () {
-		var modal = $(".ShowCardModal");
-		modal.fadeIn(200);
-		modal.delay(6000).fadeOut(200)
-	});
+});
+$(".showCards").click(function () {
+	var modal = $(".showCardModal");
+	modal.fadeIn(200);
+	modal.delay(6000).fadeOut(200)
 });
