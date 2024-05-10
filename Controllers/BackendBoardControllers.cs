@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using SDCS.Engine.Teams;
 using SDCS;
 using System.Text;
+using SDCS.Engine;
 
 namespace ChgCharityJamPrototype.Controllers
 {
@@ -17,19 +18,19 @@ namespace ChgCharityJamPrototype.Controllers
 		private readonly IHostEnvironment _fileProvider;
 		private readonly IHubContext<CommunicationHub> _hubContext;
 
-		private readonly BackendModel _backendModel;
+		private readonly Game _game;
 
 		public BackendBoardController(ILogger<BackendBoardController> logger,
 										IConfiguration configuration,
 										IHostEnvironment fileProvider,
 										IHubContext<CommunicationHub> hubContext,
-										BackendModel backendModel)
+										Game game)
 		{
 			_logger = logger;
 			_configuration = configuration;
 			_fileProvider = fileProvider;
 			_hubContext = hubContext;
-			_backendModel = backendModel;
+			_game = game;
 		}
 
 		[HttpGet]
@@ -38,17 +39,17 @@ namespace ChgCharityJamPrototype.Controllers
 			// this initialization process should be done in either 
 			// the BackendModel itself or in an appropriate Logic / Builder Class
 			// Initialize cards
-			//if (!_backendModel.Cards._cardList.Any())
+			//if (!_game.Cards._cardList.Any())
 			//{
 			//	InitializeCards();
 			//}
 			//// initialize teams
-			//if (!_backendModel.Teams._teamList.Any())
+			//if (!_game.Teams._teamList.Any())
 			//{
 			//	InitializeTeams();
 			//}
 
-			return View(_backendModel);
+			return View(_game);
 		}
 
 		[HttpGet("BackendBoard/teams")]
@@ -110,7 +111,7 @@ namespace ChgCharityJamPrototype.Controllers
 			await _hubContext.Clients.All.SendAsync("ReceiveCard", "asd", "card");
 
 
-
+			// _game.TeamManager.AddTeam(new TeamData());
 
 
 			return Ok();
@@ -119,7 +120,7 @@ namespace ChgCharityJamPrototype.Controllers
 			//    return BadRequest("No name given");
 			//}
 
-			//_backendModel.Teams._teamList.Add(new Team.Builder().WithName(teamName).WithBalance(0).WithHexColor("#000000").Build());
+			//_game.Teams._teamList.Add(new Team.Builder().WithName(teamName).WithBalance(0).WithHexColor("#000000").Build());
 
 			//return Ok(teamName);
 		}
@@ -127,13 +128,14 @@ namespace ChgCharityJamPrototype.Controllers
 		[HttpDelete]
 		public IActionResult DeleteTeam([FromQuery] string team)
 		{
-			var teamToDelete = _backendModel.Teams._teamList.Find(x => x.Name is not null && x.Name.Equals(team, StringComparison.OrdinalIgnoreCase));
-			if (teamToDelete is null)
-			{
-				return NotFound();
-			}
+			//var teamToDelete = _game.Teams._teamList.Find(x => x.Name is not null && x.Name.Equals(team, StringComparison.OrdinalIgnoreCase));
+			//if (teamToDelete is null)
+			//{
+			//	return NotFound();
+			//}
 
-			_backendModel.Teams._teamList.Remove(teamToDelete);
+			//_game.Teams._teamList.Remove(teamToDelete);
+
 
 			return Ok();
 		}
@@ -141,7 +143,7 @@ namespace ChgCharityJamPrototype.Controllers
 		//private void InitializeTeams()
 		//{
 		//	var testTeamMember = new Team.Builder().WithName("TestTeam").WithBalance(420).WithHexColor("#3498db").Build();
-		//	_backendModel.Teams.AddTeamMembers([testTeamMember]);
+		//	_game.Teams.AddTeamMembers([testTeamMember]);
 		//}
 
 		//private void InitializeCards()
@@ -158,7 +160,7 @@ namespace ChgCharityJamPrototype.Controllers
 		//		var jsonObject = JsonConvert.DeserializeObject<List<Card>>(reader.ReadToEnd());
 
 		//		if (jsonObject != null)
-		//			_backendModel.Cards.AddCards(jsonObject);
+		//			_game.Cards.AddCards(jsonObject);
 		//	}
 		//}
 	}
