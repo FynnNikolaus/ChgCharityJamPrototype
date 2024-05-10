@@ -1,12 +1,7 @@
 using ChgCharityJamPrototype.DTO;
 using ChgCharityJamPrototype.Hubs;
-using ChgCharityJamPrototype.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using Newtonsoft.Json;
-using SDCS.Engine.Teams;
-using SDCS;
-using System.Text;
 using SDCS.Engine;
 
 namespace ChgCharityJamPrototype.Controllers
@@ -49,7 +44,7 @@ namespace ChgCharityJamPrototype.Controllers
 			//	InitializeTeams();
 			//}
 
-			return View(_game);
+			return View(null);
 		}
 
 		[HttpGet("BackendBoard/teams")]
