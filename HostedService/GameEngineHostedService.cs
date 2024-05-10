@@ -17,7 +17,7 @@ public class GameEngineHostedService : BackgroundService
 		Game = game ?? throw new ArgumentNullException(nameof(game));
 		Engine = engine ?? throw new ArgumentNullException(nameof(engine));
 		GameStatusProvider = gameStatusProvider ?? throw new ArgumentNullException(nameof(gameStatusProvider));
-    CommunicationHub = communicationHub ?? throw new ArgumentNullException(nameof(communicationHub));
+		CommunicationHub = communicationHub ?? throw new ArgumentNullException(nameof(communicationHub));
 	}
 
 	protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -26,7 +26,7 @@ public class GameEngineHostedService : BackgroundService
 
 		var gameTask = Engine.Run(Game, targetFPS: 1);
 
-    await CommunicationHub.UpdateGameStatus(new GameStatusModel(), stoppingToken);
+		await CommunicationHub.UpdateGameStatus(new GameStatusModel(), stoppingToken);
 
 		while (!stoppingToken.IsCancellationRequested)
 		{
