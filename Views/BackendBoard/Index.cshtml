@@ -1,22 +1,10 @@
 ﻿@using ChgCharityJamPrototype.Models
-@model BackendModel
 @{
 	ViewData["Title"] = "Backend Board";
 }
 
 <div class="text-center">
 	<h1 class="display-4">Backend Board</h1>
-</div>
-
-<div class="container">
-	<label for="cards">Choose a card:</label>
-	<select name="cards" id="cards">
-		@foreach (var card in Model.Cards._cardList)
-		{
-			<option value="@card.Id">@card.Name</option>
-		}
-	</select>
-	<input type="button" class="sendCard" value="Send Card" />
 </div>
 
 <div class="container">
