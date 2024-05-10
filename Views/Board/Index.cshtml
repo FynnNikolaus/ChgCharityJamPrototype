@@ -2,6 +2,8 @@
     ViewData["Title"] = "Frontend Board";
 }
 
+<button type="button" class="showCards" data-bs-toggle="foo">Click on me to trigger card</button>
+
 <div class="inner-container">
 	<div class="row">
 		<div class="col">
@@ -178,12 +180,14 @@
 </div>
 
 <div class="container">
-    <div class="row p-1">
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
+	<div class="row p-1">
+		<div class="col-6">
+			<ul id="messagesList"></ul>
+		</div>
+	</div>
 </div>
+
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/recipient.js"></script>
+<script src="~/js/channel.js"></script>

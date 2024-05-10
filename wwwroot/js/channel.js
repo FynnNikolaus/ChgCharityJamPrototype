@@ -11,5 +11,10 @@ $(document).ready(function () {
 	$(".sendCard").click(function () {
 		console.log("seinding card")
         new Senders(connection).sendCard();
-    });
+	});
+});
+$(".showCards").click(function () {
+	var modal = $(".showCardModal");
+	modal.fadeIn(200);
+	modal.delay(6000).fadeOut(200)
 });
