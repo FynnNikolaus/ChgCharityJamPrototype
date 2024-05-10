@@ -28,7 +28,7 @@ function loadTeams()
 		success: function (teams) {
 
 			teams.forEach(function (x) {
-				var option = $("<option>", { text: x.name });
+				var option = $("<option>", { text: x.teamData.Name });
 				$('#teamSelection').append(option);
 			});
 		}
@@ -47,16 +47,31 @@ function loadCards() {
 		type: "get",
 		success: function (cards) {
 
-			cards.forEach(function (x) {
-				var tableRow = $("<tr>", {});
-				var idColumn = $("<td>", { text: x.id });
-				tableRow.append(idColumn);
-				var nameColumn = $("<td>", { text: x.name });
-				tableRow.append(nameColumn);
-				$('#cardTable').append(tableRow);
+			var table = $("#cardTable");
+
+			cards.forEach(function (data) {
+				addRow(table, data);
 			});
 		}
 	});
+}
+
+function addRow(table, data) {
+	var tableRow = $("<tr>", {});
+	addColumn(tableRow, data.id);
+	addColumn(tableRow, data.name);
+	addColumn(tableRow, data.type);
+	addColumn(tableRow, data.activation);
+	addColumn(tableRow, data.duration);
+	addColumn(tableRow, data.price);
+	addColumn(tableRow, data.ttsPrimaryDesc);
+	addColumn(tableRow, data.ttsSecondaryDesc);
+	table.append(tableRow);
+}
+
+function addColumn(row, columnValue) {
+	var column = $("<td>", { text: columnValue });
+	row.append(column);
 }
 
 function deleteTeam() {
