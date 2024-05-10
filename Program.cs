@@ -26,7 +26,10 @@ namespace ChgCharityJamPrototype
 
 			builder.Services.AddSingleton(engine);
 			builder.Services.AddSingleton(game);
+			builder.Services.AddSingleton<GameStatusProvider>();
+			builder.Services.AddSingleton<IGameStatusProvider>(s => s.GetRequiredService<GameStatusProvider>());
 			builder.Services.AddHostedService<GameEngineHostedService>();
+			builder.Services.AddSingleton(_ => TimeProvider.System);
 
 			var app = builder.Build();
 

@@ -1,80 +1,85 @@
 ﻿@using ChgCharityJamPrototype.Models
 @model BackendModel
 @{
-    ViewData["Title"] = "Backend Board";
+	ViewData["Title"] = "Backend Board";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Backend Board</h1>
+	<h1 class="display-4">Backend Board</h1>
 </div>
 
 <div class="container">
-    <label for="cards">Choose a card:</label>
-    <select name="cards" id="cards">
-        @foreach (var card in Model.Cards._cardList)
-        {
-            <option value="@card.Id">@card.Name</option>
-        }
-    </select>
-    <input type="button" class="sendCard" value="Send Card" />
+	<label for="cards">Choose a card:</label>
+	<select name="cards" id="cards">
+		@foreach (var card in Model.Cards._cardList)
+		{
+			<option value="@card.Id">@card.Name</option>
+		}
+	</select>
+	<input type="button" class="sendCard" value="Send Card" />
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h3>Neues Team hinzufügen</h3>
-            <input type="text" id="NewTeamName" />
-            <button type="button" class="btn btn-primary" onclick="addTeam()">Hinzufügen</button>
-        </div>
-        <div class="col-md-8">
-            <h3>Teams</h3>
-            <select asp-items="@(new SelectList(Model.Teams._teamList.Select(x => x.Name)))" id="SelectedTeam" class="form-control"></select>
-            <button type="button" class="btn btn-danger" onclick="deleteTeam()">Löschen</button>
-            <ul id="teamList">
-@*                 @foreach (var team in Model.Teams._teamList)
-                {
-                    <li>@team.Name</li>
-                } *@
-            </ul>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-3">
+			<h3>Teams</h3>
+			<select id="teamSelection" class="form-control" size="8"></select>
+			<div id="teamButtons">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Erstellen</button>
+				<button type="button" class="btn btn-danger" onclick="deleteTeam()">Löschen</button>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<h3>Cards</h3>
+			<input class="form-control" id="cardSearchBox" type="text" placeholder="...Search">
+				<br>
+				<table class="table table-bordered table-striped bg-white">
+					<thead>
+					  <tr>
+						<th>Id</th>
+						<th>Name</th>
+					  </tr>
+					</thead>
+					<tbody id="cardTable">
+					  <tr>
+						<td>SDCS-000</td>
+						<td>IDK</td>
+					  </tr>
+					</tbody>
+				</table>
+		</div>
 </div>
 
-@section Scripts {
-    <script>
-        function addTeam() {
-            var teamName = document.getElementById('NewTeamName').value;
+<div class="container">
+	<div class="row">
 
-            var option = document.createElement('option');
-            option.text = teamName;
-
-            document.getElementById('SelectedTeam').append(option);
+</div>
 
 
-            $.ajax({
-                url: "BackendBoard/AddTeam?team=" + teamName, type: "POST", success: function (result) {
-                    alert("successfully added team: " + result);
-                }
-            });
-        }
-
-        function deleteTeam() {
-            var teamSelectBox = document.getElementById('SelectedTeam');
-            var selectedTeam = teamSelectBox.options[teamSelectBox.selectedIndex].text;
-
-            $.ajax({
-                url: "BackendBoard/DeleteTeam?team=" + selectedTeam, type: "DELETE", success: function (result) {
-                    alert("successfully removed team: " + selectedTeam);
-                }
-            });
-
-            const options = [...document.querySelectorAll("#SelectedTeam option")];
-            options.forEach(elem => {
-                if (elem.innerText == selectedTeam) elem.parentNode.removeChild(elem);
-            });
-        }
-    </script>
-}
+<div id="teamAddPopup" class="modal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body text-black">
+				<form id="addTeamForm" onsubmit="submitAddTeamForm()">
+					<div class="form-group">
+						<label>Team Name:</label>
+						<input type="text" class="form-control" itemid="name" name="name" />
+						<label>Workspace Name:</label>
+						<input type="text" class="form-control" itemid="workspace" name="workspace" />
+						<label>Mitglieder Anzahl:</label>
+						<input type="number" class="form-control" itemid="userCount" name="userCount" />
+						<label>Credits:</label>
+						<input type="number" class="form-control" itemid="balance" name="balance" />
+						@* <label>Bild:</label> *@
+						@* <input type="file" class="form-control" itemid="image" name="image" /> *@
+						<button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Save</button>
+						<button type="cancel" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#teamAddPopup">Cancel</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/channel.js"></script>
