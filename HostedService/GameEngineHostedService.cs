@@ -32,7 +32,5 @@ public class GameEngineHostedService : BackgroundService
 		{
 
 		}
-
-		return Task.CompletedTask;
 	}
 }
