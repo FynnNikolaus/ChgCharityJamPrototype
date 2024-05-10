@@ -30,7 +30,7 @@ jobs:
       uses: gittools/actions/gitversion/execute@v0.9.7
     
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pascalspiller/chgcharityjamprototype:${{steps.gitversion.outputs.semVer}}
+      run: docker build . --file Dockerfile --tag pascalspiller/chgcharityjamprototype:${{steps.gitversion.outputs.semVer}} --tag pascalspiller/chgcharityjamprototype:latest
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -43,7 +43,7 @@ jobs:
       if: github.event_name != 'pull_request'
 
     - name: Push the Docker image latest
-      run: docker push pascalspiller/chgcharityjamprototype
+      run: docker push pascalspiller/chgcharityjamprototype:latest
       if: github.event_name != 'pull_request'
 
     - name: Create a GitHub release
