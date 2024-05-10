@@ -34,8 +34,40 @@ body {
 	}
 }
 
+.logo {
+	background-image: url("../Assets/misc/logo.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 150px;
+	height: 150px;
+}
+
+.dealer {
+	background-image: url("../Assets/misc/dealer.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 150px;
+	height: 150px;
+	border-radius: 80px;
+	border: 5px solid;
+}
+
+.headline {
+	color:	@color_grey;
+	text-transform: uppercase;
+	
+	&.primary {
+		color: @color_primary;
+	}
+}
+
 .row {
 	justify-content: space-around;
+}
+
+.col-shrink {
+	flex-basis: 150px;
+	flex-grow: inherit;
 }
 
 .itemWrapper {
@@ -49,7 +81,7 @@ body {
 	min-height: 400px;
 	position: relative;
 	overflow: hidden;
-	background-image: url("../Assets/sampleTeam.PNG"); /* Hintergrundbild */
+	background-image: url("../Assets/sampleTeam.PNG");
 	background-repeat: no-repeat;
 	background-size: cover;
 	
