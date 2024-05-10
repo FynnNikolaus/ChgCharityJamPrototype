@@ -43,7 +43,7 @@ jobs:
       if: github.event_name != 'pull_request'
 
     - name: Push the Docker image latest
-      run: docker push pascalspiller/chgcharityjamprototype:latest
+      run: docker push pascalspiller/chgcharityjamprototype
       if: github.event_name != 'pull_request'
 
     - name: Create a GitHub release
