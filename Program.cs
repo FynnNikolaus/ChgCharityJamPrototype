@@ -22,6 +22,8 @@ namespace ChgCharityJamPrototype
 			var engine = new Engine();
 			var game = new Game(engine);
 
+			builder.Services.AddTransient<ICommunicationHub, CommunicationHubImplementation>();
+
 			builder.Services.AddSingleton(engine);
 			builder.Services.AddSingleton(game);
 			builder.Services.AddSingleton<GameStatusProvider>();
