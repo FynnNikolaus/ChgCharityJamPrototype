@@ -1,5 +1,4 @@
 "use strict";
-
 $(document).ready(function () {
     var connection = new signalR.HubConnectionBuilder().withUrl("/communicationHub").build();
 
@@ -8,17 +7,9 @@ $(document).ready(function () {
     }).catch(function (err) {
         return console.error(err.toString());
     });
-
-    function sendCard() {
-        var card = $("#cards").val();
-        var team = "TeamX";
-
-        connection.invoke("PlayCard", card, team).catch(function (err) {
-            return console.error(err.toString());
-        });
-    }
-
-    $(".sendCard").click(function () {
-        sendCard();
+	
+	$(".sendCard").click(function () {
+		console.log("seinding card")
+        new Senders(connection).sendCard();
     });
 });
