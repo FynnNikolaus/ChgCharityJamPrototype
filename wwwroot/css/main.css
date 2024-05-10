@@ -21,7 +21,7 @@ body {
   margin-bottom: 60px;
   height: 100vh;
   background-color: #2c2f36;
-  color: antiquewhite;
+  color: #FFF;
 }
 .item {
   border: 1px solid #ccc;
@@ -32,13 +32,13 @@ body {
   text-align: center;
   background-color: #1008156b;
   font-size: large;
-  color: white;
+  color: #FFF;
   position: relative;
 }
 .credits {
   text-align: center;
   background-color: #1008156b;
-  color: orange;
+  color: #FFA500FF;
   font-weight: bold;
   width: 70%;
   border-radius: 40px;
@@ -56,22 +56,16 @@ body {
   height: 0;
   border-style: solid;
   transform: rotate(180deg);
-  /* Spitzen um 45 Grad drehen */
 }
 .teamName::before {
   border-width: 10px 0 10px 10px;
-  /* Top, Right, Bottom, Left */
   border-color: transparent transparent transparent #1008156b;
-  /* Farbe der Spitze, passend zur Hintergrundfarbe */
   left: -10px;
   height: 100%;
 }
 .teamName::after {
   border-width: 10px 10px 10px 0;
-  /* Top, Right, Bottom, Left */
   border-color: transparent #1008156b transparent transparent;
-  /* Farbe der Spitze, passend zur Hintergrundfarbe */
   right: -10px;
   height: 100%;
 }
-/*# sourceMappingURL=main.css.map */
