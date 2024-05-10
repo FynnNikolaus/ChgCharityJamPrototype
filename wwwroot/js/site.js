@@ -86,13 +86,16 @@ function deleteTeam() {
 // initialize teams and stuff idk
 $(document).ready(function() {
 	loadTeams();
+	loadCards();
 
-	$(document).ready(function () {
-		$("#cardSearchBox").on("keyup", function () {
-			var value = $(this).val().toLowerCase();
-			$("#cardTable tr").filter(function () {
-				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-			});
+	$('#cardTable').on('click', 'tbody tr', function (event) {
+		$(this).addClass('highlight').siblings().removeClass('highlight');
+	});
+
+	$("#cardSearchBox").on("keyup", function () {
+		var value = $(this).val().toLowerCase();
+		$("#cardTable tr").filter(function () {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 		});
 	});
 });

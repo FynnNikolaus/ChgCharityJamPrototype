@@ -1,4 +1,5 @@
 using ChgCharityJamPrototype.DTO;
+using ChgCharityJamPrototype.HostedService;
 using ChgCharityJamPrototype.Hubs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -13,6 +14,7 @@ public class BackendBoardController : Controller
 	private readonly IConfiguration _configuration;
 	private readonly IHostEnvironment _fileProvider;
 	private readonly IHubContext<CommunicationHub> _hubContext;
+	private readonly IGameStatusProvider _gameStatusProvider;
 
 	private readonly Game _game;
 
@@ -20,12 +22,14 @@ public class BackendBoardController : Controller
 									IConfiguration configuration,
 									IHostEnvironment fileProvider,
 									IHubContext<CommunicationHub> hubContext,
+									IGameStatusProvider gameStatusProvider,
 									Game game)
 	{
 		_logger = logger;
 		_configuration = configuration;
 		_fileProvider = fileProvider;
 		_hubContext = hubContext;
+		_gameStatusProvider = gameStatusProvider;
 		_game = game;
 	}
 
@@ -38,6 +42,7 @@ public class BackendBoardController : Controller
 	[HttpGet("BackendBoard/teams")]
 	public IActionResult GetTeams()
 	{
+		//var teams = _gameStatusProvider.GetLatestGameStatus().Teams;
 		var teams = _game.TeamManager.GetAllTeams();
 
 		return Ok(teams);
